@@ -3,18 +3,24 @@ package fr.iutvalence.tp1a.binome4.morpion;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JSplitPane;
 import javax.swing.WindowConstants;
 import javax.swing.JLabel;
 import javax.swing.JComponent;
 
+import fr.iutvalence.tp1a.binome4.morpion.boutons.*;
+
+
 /**
- * Tâche gérant l'IHM (création, affichage)
+ * T�che g�rant l'IHM (cr�ation, affichage)
  * 
  * @author Gorce & Godicheau
  * 
@@ -22,19 +28,25 @@ import javax.swing.JComponent;
 public class TacheDAffichageDeFrame implements Runnable, ActionListener
 {
 
-    // La fenêtre
+    // La fen�tre
     private JFrame fenetre;
+    
+    public static final JPanel unTableau = new JPanel();
 
-    /**
-     * Les items des différents sous-menus
-     */
-    private JMenuItem menuItemAPropos;
-    private JMenuItem menuItemNouvellePartie;
-    private JMenuItem menuItemQuitter;
-    private JMenuItem menuItemReinitialiserPartie;
-    private JMenuItem menuItemEditerNomJoueurs;
-    private JMenuItem menuItemCommentJouer;
-    private JMenuItem menuItemInterrogation;
+    private JMenuBar barreDeMenu = new JMenuBar();
+    
+	JMenu menuJouer = new JMenu("Jouer");
+	private JMenuItem menuItemJouerNouvellePartie;
+	private JMenuItem menuItemJouerReinitialiserPartie;
+	private JMenuItem menuItemJouerEditerNomJoueurs;
+	private JMenuItem menuItemJouerQuitter;
+	
+	JMenu menuAide = new JMenu("Aide");
+	private JMenuItem menuItemAideCommentJouer;
+    private JMenuItem menuItemAideAPropos;
+    private JMenuItem menuItemAideInterrogation;
+    
+    private JSplitPane splitPaneDroit;
 
     /**
      * Les Boutons de la grille
@@ -55,7 +67,7 @@ public class TacheDAffichageDeFrame implements Runnable, ActionListener
     private JButton b32;
     private JButton b33;
 
-    // Le bouton de remise à zéro
+    // Le bouton de remise � z�ro
     private JButton boutonRemiseAZero;
 
     public enum symboles
@@ -73,14 +85,14 @@ public class TacheDAffichageDeFrame implements Runnable, ActionListener
      */
     public void run()
     {
+    	
 	this.fenetre = new JFrame();
 
-	this.fenetre.setTitle("Morpion");
-	this.fenetre.setSize(600, 600);
-	this.fenetre.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-
-	this.labelDesPseudos = new JLabel();
-	this.labelDesPseudos.setOpaque(true);
+	fenetre.setTitle("Morpion");
+	fenetre.setSize(450, 400);
+	fenetre.setResizable(false);
+	fenetre.setLocationRelativeTo(null);
+	fenetre.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
 	this.boutonRemiseAZero = new JButton("Remise à zero");
 	this.boutonRemiseAZero.setFocusable(false);
@@ -88,47 +100,71 @@ public class TacheDAffichageDeFrame implements Runnable, ActionListener
 
 	this.saisieDesSymbolesCommencee = false;
 
-	// Création du composant associé à la barre de menu
-	JMenuBar barreDeMenu = new JMenuBar();
+	
+	// Ajout des actions possibles dans le menu "Partie"
+			this.menuJouer.add(this.menuItemJouerNouvellePartie);
+			this.menuJouer.add(this.menuItemJouerReinitialiserPartie);
+			this.menuJouer.addSeparator();
+			this.menuJouer.add(this.menuItemJouerEditerNomJoueurs);
+			this.menuJouer.addSeparator();
+			this.menuJouer.add(this.menuItemJouerQuitter);
+			
+			
+	// Ajout des actions possibles dans le menu "Aide"
+			this.menuAide.add(menuItemAideCommentJouer);
+			this.menuAide.add(menuItemAideAPropos);
+			this.menuAide.add(menuItemAideInterrogation);
+			
+	// On ajoute les événements relatifs aux différents boutons
+			this.menuItemJouerNouvellePartie.addActionListener(new BoutonJouer(this));
+			this.menuItemJouerReinitialiserPartie.addActionListener(new BoutonQuitter());
+			this.menuItemJouerEditerNomJoueurs.addActionListener(new BoutonHistoriqueDesScores());
+			this.menuItemJouerQuitter.addActionListener(new BoutonReglesDuJeu());
+			this.menuItemAideCommentJouer.addActionListener(new BoutonVersion());
+			this.menuItemAideAPropos.addActionListener(new BoutonAProposDe());
+			this.menuItemAideInterrogation.addActionListener(new BoutonAProposDe());
 
+	
+	
+	
+	
+	
 	// Création des rubriques
-	JMenu Menu = new JMenu("Menu");
-	JMenu Partie = new JMenu("Partie");
-	JMenu Aide = new JMenu("Aide");
+
 
 	// Création des items de rubrique
-	this.menuItemNouvellePartie = new JMenuItem("Nouvelle Partie");
-	this.menuItemReinitialiserPartie = new JMenuItem("Réinitialiser Partie");
-	this.menuItemEditerNomJoueurs = new JMenuItem("Editer Nom Joueurs");
-	this.menuItemCommentJouer = new JMenuItem("Comment Jouer?");
-	this.menuItemAPropos = new JMenuItem("A propos");
-	this.menuItemInterrogation = new JMenuItem("?");
+	this.menuItemJouerNouvellePartie = new JMenuItem("Nouvelle Partie");
+	this.menuItemJouerReinitialiserPartie = new JMenuItem("R�initialiser Partie");
+	this.menuItemJouerEditerNomJoueurs = new JMenuItem("Editer Nom Joueurs");
+	this.menuItemAideCommentJouer = new JMenuItem("Comment Jouer?");
+	this.menuItemAideAPropos = new JMenuItem("A propos");
+	this.menuItemAideInterrogation = new JMenuItem("?");
 
 	// Association de la tâche comme auditeur d'évènement
-	this.menuItemNouvellePartie.addActionListener(this);
-	this.menuItemReinitialiserPartie.addActionListener(this);
-	this.menuItemEditerNomJoueurs.addActionListener(this);
-	this.menuItemAPropos.addActionListener(this);
-	this.menuItemCommentJouer.addActionListener(this);
-	this.menuItemInterrogation.addActionListener(this);
+	this.menuItemJouerNouvellePartie.addActionListener(this);
+	this.menuItemJouerReinitialiserPartie.addActionListener(this);
+	this.menuItemJouerEditerNomJoueurs.addActionListener(this);
+	this.menuItemAideAPropos.addActionListener(this);
+	this.menuItemAideCommentJouer.addActionListener(this);
+	this.menuItemAideInterrogation.addActionListener(this);
 
 	// Ajout des rubriques à la barre de menu
-	barreDeMenu.add(Menu);
+	barreDeMenu.add(menuJouer);
 	barreDeMenu.add(Partie);
-	barreDeMenu.add(Aide);
+	barreDeMenu.add(menuAide);
 
 	// Ajout des items aux différentes rubriques
-	Menu.add(this.menuItemAPropos);
-	this.menuItemQuitter = new JMenuItem("Quitter");
-	this.menuItemQuitter.addActionListener(this);
-	Menu.add(this.menuItemQuitter);
+	menuJouer.add(this.menuItemAideAPropos);
+	this.menuItemJouerQuitter = new JMenuItem("Quitter");
+	this.menuItemJouerQuitter.addActionListener(this);
+	menuJouer.add(this.menuItemJouerQuitter);
 
-	Partie.add(this.menuItemNouvellePartie);
-	Partie.add(this.menuItemReinitialiserPartie);
-	Partie.add(this.menuItemEditerNomJoueurs);
+	Partie.add(this.menuItemJouerNouvellePartie);
+	Partie.add(this.menuItemJouerReinitialiserPartie);
+	Partie.add(this.menuItemJouerEditerNomJoueurs);
 
-	Aide.add(this.menuItemCommentJouer);
-	Aide.add(this.menuItemInterrogation);
+	menuAide.add(this.menuItemAideCommentJouer);
+	menuAide.add(this.menuItemAideInterrogation);
 
 	// Affectation de la barre de menu à la fenêtre
 	this.fenetre.setJMenuBar(barreDeMenu);
@@ -159,7 +195,7 @@ public class TacheDAffichageDeFrame implements Runnable, ActionListener
 	// Identification de l'item sélectionné, source de l'événement
 	JMenuItem itemSelectionne = (JMenuItem) event.getSource();
 
-	if (itemSelectionne == this.menuItemAPropos)
+	if (itemSelectionne == this.menuItemAideAPropos)
 	{
 	    JOptionPane.showMessageDialog(this.fenetre,
 		    "Ceci est un jeu de Morpion", "A propos",
@@ -167,7 +203,7 @@ public class TacheDAffichageDeFrame implements Runnable, ActionListener
 	    return;
 	}
 
-	if (itemSelectionne == this.menuItemQuitter)
+	if (itemSelectionne == this.menuItemJouerQuitter)
 	{
 	    // Affichage d'une boite de dialogue proposant 2 options
 	    if (JOptionPane.showConfirmDialog(this.fenetre, "Souhaitez-vous vraiment quitter le jeu ?", "Confirmation", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.OK_OPTION)
@@ -189,13 +225,13 @@ public class TacheDAffichageDeFrame implements Runnable, ActionListener
 //	    return;
 //	}
 
-	if (itemSelectionne == this.menuItemCommentJouer)
+	if (itemSelectionne == this.menuItemAideCommentJouer)
 	{
 	    JOptionPane.showMessageDialog(this.fenetre, "Règles du Jeu : Le jeu de Morpion se joue à 2 joueurs. Chaque joueur possède un type de pion (X ou O). Le but est d'aligner 3 pions, à la verticale, horizontale, ou diagonale.", "Comment Jouer?", JOptionPane.INFORMATION_MESSAGE);
 	    return;
 	}
 
-	if (itemSelectionne == this.menuItemInterrogation)
+	if (itemSelectionne == this.menuItemAideInterrogation)
 	{
 	    JOptionPane.showMessageDialog(this.fenetre, "Coordonnées des codeurs", "?", JOptionPane.INFORMATION_MESSAGE);
 	    return;
