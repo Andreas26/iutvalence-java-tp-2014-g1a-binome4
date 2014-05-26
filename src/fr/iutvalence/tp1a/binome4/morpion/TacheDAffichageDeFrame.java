@@ -18,9 +18,8 @@ import javax.swing.JComponent;
 
 import fr.iutvalence.tp1a.binome4.morpion.boutons.*;
 
-
 /**
- * T�che g�rant l'IHM (cr�ation, affichage)
+ * T�che g�rant l'IHM (cr�ation, affichage)
  * 
  * @author Gorce & Godicheau
  * 
@@ -28,24 +27,24 @@ import fr.iutvalence.tp1a.binome4.morpion.boutons.*;
 public class TacheDAffichageDeFrame implements Runnable, ActionListener
 {
 
-    // La fen�tre
+    // La fen�tre
     private JFrame fenetre;
-    
+
     public static final JPanel unTableau = new JPanel();
 
     private JMenuBar barreDeMenu = new JMenuBar();
-    
-	JMenu menuJouer = new JMenu("Jouer");
-	private JMenuItem menuItemJouerNouvellePartie;
-	private JMenuItem menuItemJouerReinitialiserPartie;
-	private JMenuItem menuItemJouerEditerNomJoueurs;
-	private JMenuItem menuItemJouerQuitter;
-	
-	JMenu menuAide = new JMenu("Aide");
-	private JMenuItem menuItemAideCommentJouer;
+
+    JMenu menuJouer = new JMenu("Jouer");
+    private JMenuItem menuItemJouerNouvellePartie;
+    private JMenuItem menuItemJouerReinitialiserPartie;
+    private JMenuItem menuItemJouerEditerNomJoueurs;
+    private JMenuItem menuItemJouerQuitter;
+
+    JMenu menuAide = new JMenu("Aide");
+    private JMenuItem menuItemAideCommentJouer;
     private JMenuItem menuItemAideAPropos;
     private JMenuItem menuItemAideInterrogation;
-    
+
     private JSplitPane splitPaneDroit;
 
     /**
@@ -56,24 +55,23 @@ public class TacheDAffichageDeFrame implements Runnable, ActionListener
     private JButton b11;
     private JButton b12;
     private JButton b13;
-    
+
     // Ligne 2
     private JButton b21;
     private JButton b22;
     private JButton b23;
-    
+
     // Ligne 3
     private JButton b31;
     private JButton b32;
     private JButton b33;
 
-    // Le bouton de remise � z�ro
+    // Le bouton de remise � z�ro
     private JButton boutonRemiseAZero;
 
     public enum symboles
     {
-	X,
-	O;
+    X, O;
     }
 
     private JLabel labelDesPseudos;
@@ -85,7 +83,7 @@ public class TacheDAffichageDeFrame implements Runnable, ActionListener
      */
     public void run()
     {
-    	
+
 	this.fenetre = new JFrame();
 
 	fenetre.setTitle("Morpion");
@@ -100,41 +98,34 @@ public class TacheDAffichageDeFrame implements Runnable, ActionListener
 
 	this.saisieDesSymbolesCommencee = false;
 
-	
 	// Ajout des actions possibles dans le menu "Partie"
-			this.menuJouer.add(this.menuItemJouerNouvellePartie);
-			this.menuJouer.add(this.menuItemJouerReinitialiserPartie);
-			this.menuJouer.addSeparator();
-			this.menuJouer.add(this.menuItemJouerEditerNomJoueurs);
-			this.menuJouer.addSeparator();
-			this.menuJouer.add(this.menuItemJouerQuitter);
-			
-			
+	this.menuJouer.add(this.menuItemJouerNouvellePartie);
+	this.menuJouer.add(this.menuItemJouerReinitialiserPartie);
+	this.menuJouer.addSeparator();
+	this.menuJouer.add(this.menuItemJouerEditerNomJoueurs);
+	this.menuJouer.addSeparator();
+	this.menuJouer.add(this.menuItemJouerQuitter);
+
 	// Ajout des actions possibles dans le menu "Aide"
-			this.menuAide.add(menuItemAideCommentJouer);
-			this.menuAide.add(menuItemAideAPropos);
-			this.menuAide.add(menuItemAideInterrogation);
-			
+	this.menuAide.add(menuItemAideCommentJouer);
+	this.menuAide.add(menuItemAideAPropos);
+	this.menuAide.add(menuItemAideInterrogation);
+
 	// On ajoute les événements relatifs aux différents boutons
-			this.menuItemJouerNouvellePartie.addActionListener(new BoutonJouer(this));
-			this.menuItemJouerReinitialiserPartie.addActionListener(new BoutonQuitter());
-			this.menuItemJouerEditerNomJoueurs.addActionListener(new BoutonHistoriqueDesScores());
-			this.menuItemJouerQuitter.addActionListener(new BoutonReglesDuJeu());
-			this.menuItemAideCommentJouer.addActionListener(new BoutonVersion());
-			this.menuItemAideAPropos.addActionListener(new BoutonAProposDe());
-			this.menuItemAideInterrogation.addActionListener(new BoutonAProposDe());
+	this.menuItemJouerNouvellePartie.addActionListener(new BoutonNouvellePartie(this));
+	this.menuItemJouerReinitialiserPartie.addActionListener(new BoutonNouvellePartie());
+	this.menuItemJouerEditerNomJoueurs.addActionListener(new BoutonNomJoueurs());
+	this.menuItemJouerQuitter.addActionListener(new BoutonQuitter());
+	this.menuItemAideCommentJouer.addActionListener(new BoutonCommentJouer());
+	this.menuItemAideAPropos.addActionListener(new BoutonAPropos());
+	this.menuItemAideInterrogation.addActionListener(new BoutonInterrogation());
 
-	
-	
-	
-	
-	
 	// Création des rubriques
-
 
 	// Création des items de rubrique
 	this.menuItemJouerNouvellePartie = new JMenuItem("Nouvelle Partie");
-	this.menuItemJouerReinitialiserPartie = new JMenuItem("R�initialiser Partie");
+	this.menuItemJouerReinitialiserPartie = new JMenuItem(
+		"R�initialiser Partie");
 	this.menuItemJouerEditerNomJoueurs = new JMenuItem("Editer Nom Joueurs");
 	this.menuItemAideCommentJouer = new JMenuItem("Comment Jouer?");
 	this.menuItemAideAPropos = new JMenuItem("A propos");
@@ -170,7 +161,7 @@ public class TacheDAffichageDeFrame implements Runnable, ActionListener
 	this.fenetre.setJMenuBar(barreDeMenu);
 	this.fenetre.setVisible(true);
 	this.fenetre.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-	
+
 	this.initialiserGrille();
     }
 
@@ -186,12 +177,12 @@ public class TacheDAffichageDeFrame implements Runnable, ActionListener
 	// Identification de l'item sélectionné, source de l'événement
 	JComponent source = (JComponent) event.getSource();
 
-//	if (source == this.boutonRemiseAZero)
-//	{
-//	    traiterRemiseAZero();
-//	    return;
-//	}
-	
+	// if (source == this.boutonRemiseAZero)
+	// {
+	// traiterRemiseAZero();
+	// return;
+	// }
+
 	// Identification de l'item sélectionné, source de l'événement
 	JMenuItem itemSelectionne = (JMenuItem) event.getSource();
 
@@ -206,34 +197,42 @@ public class TacheDAffichageDeFrame implements Runnable, ActionListener
 	if (itemSelectionne == this.menuItemJouerQuitter)
 	{
 	    // Affichage d'une boite de dialogue proposant 2 options
-	    if (JOptionPane.showConfirmDialog(this.fenetre, "Souhaitez-vous vraiment quitter le jeu ?", "Confirmation", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.OK_OPTION)
+	    if (JOptionPane.showConfirmDialog(this.fenetre,
+		    "Souhaitez-vous vraiment quitter le jeu ?", "Confirmation",
+		    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.OK_OPTION)
 		this.fenetre.dispose();
 	}
 
-//	if (itemSelectionne == this.menuItemNouvellePartie)
-//	{
-//	    return;
-//	}
+	// if (itemSelectionne == this.menuItemNouvellePartie)
+	// {
+	// return;
+	// }
 
-//	if (itemSelectionne == this.menuItemReinitialiserPartie)
-//	{
-//	   return;
-//	}
+	// if (itemSelectionne == this.menuItemReinitialiserPartie)
+	// {
+	// return;
+	// }
 
-//	if (itemSelectionne == this.menuItemEditerNomJoueurs)
-//	{
-//	    return;
-//	}
+	// if (itemSelectionne == this.menuItemEditerNomJoueurs)
+	// {
+	// return;
+	// }
 
 	if (itemSelectionne == this.menuItemAideCommentJouer)
 	{
-	    JOptionPane.showMessageDialog(this.fenetre, "Règles du Jeu : Le jeu de Morpion se joue à 2 joueurs. Chaque joueur possède un type de pion (X ou O). Le but est d'aligner 3 pions, à la verticale, horizontale, ou diagonale.", "Comment Jouer?", JOptionPane.INFORMATION_MESSAGE);
+	    JOptionPane
+		    .showMessageDialog(
+			    this.fenetre,
+			    "Règles du Jeu : Le jeu de Morpion se joue à 2 joueurs. Chaque joueur possède un type de pion (X ou O). Le but est d'aligner 3 pions, à la verticale, horizontale, ou diagonale.",
+			    "Comment Jouer?", JOptionPane.INFORMATION_MESSAGE);
 	    return;
 	}
 
 	if (itemSelectionne == this.menuItemAideInterrogation)
 	{
-	    JOptionPane.showMessageDialog(this.fenetre, "Coordonnées des codeurs", "?", JOptionPane.INFORMATION_MESSAGE);
+	    JOptionPane.showMessageDialog(this.fenetre,
+		    "Coordonnées des codeurs", "?",
+		    JOptionPane.INFORMATION_MESSAGE);
 	    return;
 	}
 
@@ -250,7 +249,7 @@ public class TacheDAffichageDeFrame implements Runnable, ActionListener
 	fenetre.getContentPane().add(b12);
 	b13 = new JButton("");
 	fenetre.getContentPane().add(b13);
-	
+
 	// Ligne 2
 	b21 = new JButton("");
 	fenetre.getContentPane().add(b21);
@@ -258,7 +257,7 @@ public class TacheDAffichageDeFrame implements Runnable, ActionListener
 	fenetre.getContentPane().add(b22);
 	b23 = new JButton("");
 	fenetre.getContentPane().add(b23);
-	
+
 	// Ligne 3
 	b31 = new JButton("");
 	fenetre.getContentPane().add(b31);

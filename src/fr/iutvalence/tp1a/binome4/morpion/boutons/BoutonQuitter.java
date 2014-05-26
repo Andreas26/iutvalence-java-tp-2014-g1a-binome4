@@ -1,4 +1,4 @@
-package fr.iutvalence.java.morpion.vues.graphique.boutons;
+package fr.iutvalence.tp1a.binome4.morpion.boutons;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,7 +14,7 @@ public class BoutonQuitter implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		JOptionPane.showMessageDialog(null, "Merci d'avoir joué ! ;)",
+		JOptionPane.showMessageDialog(null, "Merci d'avoir jouï¿½ ! ;)",
 										  "Remerciements", JOptionPane.INFORMATION_MESSAGE);
 		System.exit(0);
 	}

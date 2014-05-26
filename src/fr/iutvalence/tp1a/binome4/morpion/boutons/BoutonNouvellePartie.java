@@ -3,10 +3,12 @@ package fr.iutvalence.tp1a.binome4.morpion.boutons;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import fr.iutvalence.tp1a.binome4.morpion.TacheDAffichageDeFrame;;
+
 public class BoutonNouvellePartie implements ActionListener
 {
 	/** Une vue graphique. */
-	private VueGraphique vue;
+	private TacheDAffichageDeFrame vue;
 	
 	/**
 	 * Modélisation du bouton.
@@ -14,7 +16,7 @@ public class BoutonNouvellePartie implements ActionListener
 	 * @param vueGraphique
 	 *            Une vue graphique.
 	 */
-	public BoutonJouer(VueGraphique vueGraphique) {
+	public BoutonNouvellePartie(VueGraphique vueGraphique) {
 		this.vue = vueGraphique;
 	}
 
