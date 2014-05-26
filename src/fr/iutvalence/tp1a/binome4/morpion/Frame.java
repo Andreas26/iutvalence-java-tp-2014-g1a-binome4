@@ -1,4 +1,6 @@
 package fr.iutvalence.tp1a.binome4.morpion;
+import fr.iutvalence.tp1a.binome4.morpion.vuegraphique.TacheDAffichageDeFrame;
+
 import javax.swing.SwingUtilities;
 
      /**

@@ -1,4 +1,4 @@
-package fr.iutvalence.tp1a.binome4.morpion;
+package fr.iutvalence.tp1a.binome4.morpion.vuegraphique;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -16,7 +16,7 @@ import javax.swing.WindowConstants;
 import javax.swing.JLabel;
 import javax.swing.JComponent;
 
-import fr.iutvalence.tp1a.binome4.morpion.boutons.*;
+import fr.iutvalence.tp1a.binome4.morpion.vuegraphique.boutons.*;
 
 /**
  * T�che g�rant l'IHM (cr�ation, affichage)
@@ -85,51 +85,48 @@ public class TacheDAffichageDeFrame implements Runnable, ActionListener
     {
 
 	this.fenetre = new JFrame();
+	
+	
 
 	fenetre.setTitle("Morpion");
 	fenetre.setSize(450, 400);
 	fenetre.setResizable(false);
 	fenetre.setLocationRelativeTo(null);
 	fenetre.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+	
+	
+	
+	
 
 	this.boutonRemiseAZero = new JButton("Remise à zero");
 	this.boutonRemiseAZero.setFocusable(false);
 	this.boutonRemiseAZero.addActionListener(this);
 
-	this.saisieDesSymbolesCommencee = false;
 
-	// Ajout des actions possibles dans le menu "Partie"
-	this.menuJouer.add(this.menuItemJouerNouvellePartie);
-	this.menuJouer.add(this.menuItemJouerReinitialiserPartie);
-	this.menuJouer.addSeparator();
-	this.menuJouer.add(this.menuItemJouerEditerNomJoueurs);
-	this.menuJouer.addSeparator();
-	this.menuJouer.add(this.menuItemJouerQuitter);
+	
 
-	// Ajout des actions possibles dans le menu "Aide"
-	this.menuAide.add(menuItemAideCommentJouer);
-	this.menuAide.add(menuItemAideAPropos);
-	this.menuAide.add(menuItemAideInterrogation);
+	
 
 	// On ajoute les événements relatifs aux différents boutons
-	this.menuItemJouerNouvellePartie.addActionListener(new BoutonNouvellePartie(this));
-	this.menuItemJouerReinitialiserPartie.addActionListener(new BoutonNouvellePartie());
-	this.menuItemJouerEditerNomJoueurs.addActionListener(new BoutonNomJoueurs());
-	this.menuItemJouerQuitter.addActionListener(new BoutonQuitter());
-	this.menuItemAideCommentJouer.addActionListener(new BoutonCommentJouer());
-	this.menuItemAideAPropos.addActionListener(new BoutonAPropos());
-	this.menuItemAideInterrogation.addActionListener(new BoutonInterrogation());
+//	this.menuItemJouerNouvellePartie.addActionListener(new BoutonNouvellePartie(this));
+//	this.menuItemJouerReinitialiserPartie.addActionListener(new BoutonNouvellePartie());
+//	this.menuItemJouerEditerNomJoueurs.addActionListener(new BoutonNomJoueurs());
+//	this.menuItemJouerQuitter.addActionListener(new BoutonQuitter());
+//	this.menuItemAideCommentJouer.addActionListener(new BoutonCommentJouer());
+//	this.menuItemAideAPropos.addActionListener(new BoutonAPropos());
+//	this.menuItemAideInterrogation.addActionListener(new BoutonInterrogation());
 
 	// Création des rubriques
 
 	// Création des items de rubrique
 	this.menuItemJouerNouvellePartie = new JMenuItem("Nouvelle Partie");
-	this.menuItemJouerReinitialiserPartie = new JMenuItem(
-		"R�initialiser Partie");
+	this.menuItemJouerReinitialiserPartie = new JMenuItem("Reinitialiser Partie");
 	this.menuItemJouerEditerNomJoueurs = new JMenuItem("Editer Nom Joueurs");
 	this.menuItemAideCommentJouer = new JMenuItem("Comment Jouer?");
 	this.menuItemAideAPropos = new JMenuItem("A propos");
 	this.menuItemAideInterrogation = new JMenuItem("?");
+	
+	
 
 	// Association de la tâche comme auditeur d'évènement
 	this.menuItemJouerNouvellePartie.addActionListener(this);
@@ -141,7 +138,6 @@ public class TacheDAffichageDeFrame implements Runnable, ActionListener
 
 	// Ajout des rubriques à la barre de menu
 	barreDeMenu.add(menuJouer);
-	barreDeMenu.add(Partie);
 	barreDeMenu.add(menuAide);
 
 	// Ajout des items aux différentes rubriques
@@ -150,12 +146,21 @@ public class TacheDAffichageDeFrame implements Runnable, ActionListener
 	this.menuItemJouerQuitter.addActionListener(this);
 	menuJouer.add(this.menuItemJouerQuitter);
 
-	Partie.add(this.menuItemJouerNouvellePartie);
-	Partie.add(this.menuItemJouerReinitialiserPartie);
-	Partie.add(this.menuItemJouerEditerNomJoueurs);
-
 	menuAide.add(this.menuItemAideCommentJouer);
 	menuAide.add(this.menuItemAideInterrogation);
+	
+	// Ajout des actions possibles dans le menu "Partie"
+			this.menuJouer.add(this.menuItemJouerNouvellePartie);
+			this.menuJouer.add(this.menuItemJouerReinitialiserPartie);
+			this.menuJouer.addSeparator();
+			this.menuJouer.add(this.menuItemJouerEditerNomJoueurs);
+			this.menuJouer.addSeparator();
+			this.menuJouer.add(this.menuItemJouerQuitter);
+			
+			// Ajout des actions possibles dans le menu "Aide"
+			this.menuAide.add(menuItemAideCommentJouer);
+			this.menuAide.add(menuItemAideAPropos);
+			this.menuAide.add(menuItemAideInterrogation);
 
 	// Affectation de la barre de menu à la fenêtre
 	this.fenetre.setJMenuBar(barreDeMenu);
