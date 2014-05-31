@@ -5,17 +5,11 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
-/** Modélisation du bouton permettant de quitter le jeu
- * 
- * @author DELORME Loïc & BASSON Julien
- * @version 1.0 */
-public class BoutonQuitter implements ActionListener
-{
+public class BoutonQuitter implements ActionListener {
 	@Override
-	public void actionPerformed(ActionEvent e)
-	{
-		JOptionPane.showMessageDialog(null, "Merci d'avoir jou� ! ;)",
-										  "Remerciements", JOptionPane.INFORMATION_MESSAGE);
+	public void actionPerformed(ActionEvent e) {
+		JOptionPane.showMessageDialog(null, "L'application va se fermer",
+				"Quitter", JOptionPane.INFORMATION_MESSAGE);
 		System.exit(0);
 	}
 }

@@ -1,24 +1,16 @@
 package fr.iutvalence.tp1a.binome4.morpion;
-import fr.iutvalence.tp1a.binome4.morpion.vuegraphique.TacheDAffichageDeFrame;
 
 import javax.swing.SwingUtilities;
 
-     /**
-     * Une application affichant la fenêtre de jeu
-     * 
-     * @author Gorce & Godicheau
-     *
-     */
+import fr.iutvalence.tp1a.binome4.morpion.vuegraphique.VueGraphiqueDuJeu;
+     
+/** Une application affichant la fen�tre de jeu */
     public class Frame
     {
-    	/**
-    	 * Main de l'application 
-    	 * @param args (n/a)
-    	 */
+    	/** Main de l'application */
     	public static void main(String[] args)
     	{
-    		// Exécution de la tâche de gestion de l'IHM dans le thread "event dispatch" de Swing
-    		SwingUtilities.invokeLater(new TacheDAffichageDeFrame());
+    		SwingUtilities.invokeLater(new VueGraphiqueDuJeu());
     		System.out.println("fin du main !");
     	}
     }

@@ -1,29 +1,24 @@
 package fr.iutvalence.tp1a.binome4.morpion.vuegraphique.boutons;
 
-import fr.iutvalence.tp1a.binome4.morpion.vuegraphique.*;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import fr.iutvalence.tp1a.binome4.morpion.vuegraphique.*;
+
 public class BoutonNouvellePartie implements ActionListener
 {
-	/** Une vue graphique. */
-//	private TacheDAffichageDeFrame vue;
+	private VueGraphiqueDuJeu vue;
 	
-	/**
-	 * ModÃ©lisation du bouton.
-	 * 
-	 * @param vueGraphique
-	 *            Une vue graphique.
-	 */
-//	public BoutonNouvellePartie(VueGraphique vueGraphique) {
-//		this.vue = vueGraphique;
-//	}
+	/** Modélisation du bouton Nouvelle Partie*/
+	public BoutonNouvellePartie(VueGraphiqueDuJeu vueGraphique)
+	{
+		this.vue = vueGraphique;
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-//		this.vue.mettreAZeroLesCases();
-//		this.vue.remettreAZeroLeControleur();
+		this.vue.initialiserLesCasesDuPlateau();
+		this.vue.reinitialiserLeControleurGraphique();
 	}
 }

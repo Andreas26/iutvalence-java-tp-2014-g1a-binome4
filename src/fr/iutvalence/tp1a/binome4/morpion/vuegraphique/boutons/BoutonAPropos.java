@@ -5,13 +5,15 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
-
 public class BoutonAPropos implements ActionListener
 {
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		JOptionPane.showMessageDialog(null, "Membres de l'ï¿½quipe de dï¿½veloppement : \n\n- BASSON Julien \n- DELORME LoÃ¯c \n\n Merci Ã  Anthony Gelibert !",
-									 "Auteurs", JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane
+				.showMessageDialog(
+						null,
+						"Jeu réalisé par \n\n*Romain Gorce \n*Andréas Godicheau",
+						"A Propos", JOptionPane.INFORMATION_MESSAGE);
 	}
 }

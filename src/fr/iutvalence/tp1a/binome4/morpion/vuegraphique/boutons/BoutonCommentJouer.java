@@ -5,18 +5,17 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
-/** Mod√©lisation du bouton "R√®gle du jeu" de l'application.
- * 
- * @author DELORME Lo√Øc & BASSON Julien
- * @version 1.0 */
-public class BoutonCommentJouer implements ActionListener
-{
+public class BoutonCommentJouer implements ActionListener {
 	@Override
-	public void actionPerformed(ActionEvent e)
-	{
-		JOptionPane.showMessageDialog(null, "Le jeu du morpion est un jeu de r√©flexion qui se pratique √† deux."
-										  + "\nChaque joueur poss√®de un symbole diff√©rent ('X' ou 'O') et le but est de cr√©er un alignement de 3 symboles."
-										  + "\nLe premier joueur qui a align√© 3 symboles a gagn√©."
-										  , "R√®gle du jeu", JOptionPane.INFORMATION_MESSAGE);
+	public void actionPerformed(ActionEvent e) {
+		JOptionPane
+				.showMessageDialog(
+						null,
+						"Chaque joueur choisit un symbole, par exemple une croix ou un cercle."
+						+ "\nLe but est de crÈer un alignement de 3 pions."
+						+ "\nLe morpion se joue en gÈnÈral sur une grille de 3 cases sur 3. "
+						+ "\nLa grille est tracÈe puis chaque joueur joue ‡ tour de rÙle. Le premier qui a alignÈ 3 pions a gagnÈ."
+						+ "\nDans cette application il suffit de cliquer sur la case voulue pour y placer un pion",
+						"Comment Jouer", JOptionPane.INFORMATION_MESSAGE);
 	}
 }
